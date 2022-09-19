@@ -1,38 +1,109 @@
-.App {
-  text-align: center;
+
+.App{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.imgArea{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;    
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.ImgBtn{
+    background-color: brown;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.delBtn{
+    width: 5px;
+    height: 25px;
+    background-color: red;
 }
 
-.App-link {
-  color: #61dafb;
+.ImgNameList{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.imgBtnArea{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end
+
+}
+
+
+.imgAreaBtn{
+    margin: 3px;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.img{
+
+}
+
+.save{
+    background-color: red;
+}
+
+.add{
+    background-color: aquamarine;
+}
+
+.dropArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 50vh;
+    background-color: azure;
+    border: 5px dashed black;
+}
+
+.toolsPanel{
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background-color: bisque;
+    overflow: auto;
+}
+
+.groupTools{
+    width: 100%;
+    height: auto;
+    background-color: aquamarine;
+}
+
+.toolsOpenBtn{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(175, 175, 255);
+    cursor: pointer;
+}
+
+.toolBtn{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.resetFilter{
+    width: 50px;
+    height: 25px;
 }
