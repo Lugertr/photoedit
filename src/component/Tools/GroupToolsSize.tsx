@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 
 import { ImgData, ImgStateAction,ImgActionTypes } from "../../types/ImgType";
 
+import ToolsOpenBtn from "../UI/ToolsOpenBtn";
+
 import { filters } from "../../types/Filters";
-import ToolBtn from "../UI/ToolMenu";
+import InputToolComp from "../UI/InputToolComp";
 
 const GroupToolsFilter = ({curImg}:{curImg: ImgData | null}) => {
 
     const dispatch = useDispatch();
+    const [openMenu, setOpenMenu] = useState(false)
 
     const rangeChangeFunc = () => {
 
@@ -16,7 +19,8 @@ const GroupToolsFilter = ({curImg}:{curImg: ImgData | null}) => {
 
     return (
         <div className="groupTools" >
-        
+            <ToolsOpenBtn {...{status:openMenu,openMenuFunc:setOpenMenu}}>Фильтры</ToolsOpenBtn>
+
         </div>
     )       
 

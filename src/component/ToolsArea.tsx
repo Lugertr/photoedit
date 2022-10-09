@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import ToolBtn from "./UI/ToolMenu";
+import ToolBtn from "./ToolMenu";
 
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { ImgActionTypes, ImgStateAction } from "../types/ImgType";

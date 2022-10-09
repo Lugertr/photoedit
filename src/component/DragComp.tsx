@@ -23,13 +23,17 @@ const DragComp = ({curImg,addImgInList} : {
 
     if (!!curImg) {
         return (
-            <img className="img" style={curImg.style} src={curImg.src} alt='картинки нет'></img>
+           <img className="img" style={curImg.style} src={curImg.src} alt='картинки нет'></img>
         )
     }
 
     return ( 
-
+// //{(!!curImg) ? <img className="img" style={curImg.style} 
+//src={curImg.src} alt='картинки нет'></img>:
+//undefined
+//}
         <div>
+    
             {(drag) ? 
                 <div className="dropArea Open"
                 onDragStart={(e) => dragHandler(e) }

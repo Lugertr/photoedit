@@ -15,20 +15,22 @@ const IntroPage = () => {
 
     const InputFileRef = useRef<HTMLInputElement>(null);
 
-    function addImgInList(Imgs: FileList) {
+    function addImgInList(imgs: FileList) {
         let newImgs = [] as ImgData[];
-        for (let i = 0; i < Imgs.length; i++)
+        for (let i = 0; i < imgs.length; i++)
             { 
-                if (!Imgs[i].type.includes('image'))
+                if (!imgs[i].type.includes('image') || imgList.find((img)=>img.name==imgs[i].name))
                     continue
-                const newImg = {id: imgList.length+newImgs.length,
-                                name: Imgs[i].name,
+                const newImg = {id: imgList.length+i,
+                                name: imgs[i].name,
                                 style: {content:'',
                                 filter: DefFiltersState()} as ImgCssStyles,
-                                src:URL.createObjectURL(Imgs[i]),
+                                src:URL.createObjectURL(imgs[i]),
                                 history:[] as string[]}
                 newImgs.push(newImg)
             }
+        if (!newImgs.length)
+            return
         dispatch({type: ImgActionTypes.ADD_IMG, payload: [...newImgs]} as ImgStateAction)
         dispatch({type: ImgActionTypes.SET_IMG, payload: newImgs[0]} as ImgStateAction)
     }

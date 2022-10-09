@@ -1,5 +1,5 @@
 import { useRef,  useEffect } from "react";
-import { UsedFilters } from "../../types/Filters";
+import { UsedFilters } from "../types/Filters";
 
 const ToolBtn = ({filter, rangeChangeFunc,def,imgChange}:{
     filter: UsedFilters,
