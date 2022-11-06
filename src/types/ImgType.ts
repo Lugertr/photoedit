@@ -1,20 +1,29 @@
 export interface ImgCssStyles{
-    content: string,
     filter?: string,
+    
 }
+
+export interface ImgCurrentChanges {
+    style: ImgCssStyles,
+    canvasSrc: string | null,
+}
+
+export interface HistoryElem  {
+    type: string,
+    status: ImgCurrentChanges
+}
+
 
 export interface ImgData {
     id: number,
     name: string,
-    style: ImgCssStyles,
+    state: ImgCurrentChanges,
     src: string,
-    history: string[],
+    history: HistoryElem[],
 }
 
 export interface ImgState {
-  //  img: File | null | undefined;
     img: ImgData | null;
-    //imgList: Array<File | null>
     imgList: Array<ImgData>
     error: string | null | undefined;
 } 
@@ -23,7 +32,8 @@ export enum ImgActionTypes {
     ADD_IMG = "ADD_IMG",
     SET_IMG = "SET_IMG",
     REMOVE_IMG = "REMOVE_IMG",
-    CORRECT_IMG = "CORRECT_IMG",
+    SET_IMG_CHANGES = "SET_IMG_CHANGES",
+    ADD_IN_IMG_HISTORY = "ADD_IN_IMG_HISTORY"
 }
 
 interface ImgStateAddAction { 
@@ -38,9 +48,15 @@ interface ImgStateRemoveAction {
     type:ImgActionTypes.REMOVE_IMG;
     payload: ImgData}
 
-interface ImgStateCorrectImgAction {
-    type:ImgActionTypes.CORRECT_IMG;
-    payload: ImgCssStyles}
+interface ImgStateSetChangesAction {
+    type:ImgActionTypes.SET_IMG_CHANGES;
+    payload: ImgCurrentChanges}
+
+interface ImgStateAddInImgHistory {
+        type:ImgActionTypes.ADD_IN_IMG_HISTORY;
+        payload: HistoryElem}
+
 
 export type ImgStateAction = ImgStateAddAction | ImgStateGetAction 
-                            | ImgStateRemoveAction | ImgStateCorrectImgAction
+                            | ImgStateRemoveAction | ImgStateSetChangesAction
+                            | ImgStateAddInImgHistory

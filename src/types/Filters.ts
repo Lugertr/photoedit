@@ -38,3 +38,15 @@ export const filters: UsedFilters[] = [
 
 export const DefFiltersState = () => filters.reduce((str, filter) => 
             str+=`${filter.par}(${filter.default+filter.units}) `,'')
+
+export const ConvertFiltersToString = (ref: React.RefObject<HTMLInputElement>, id: number, imgFilter:string) => {
+        const regex = new RegExp(`${filters[id].par}\\([\\w|\\W]+?\\)`,'gm'); 
+        const currentPar = imgFilter.match(regex);
+        if (currentPar)
+            {  
+                const newValue = currentPar[0].replace(/\D/g, '');
+                ref.current!.value = newValue
+            }
+        else 
+            ref.current!.value = filters[id].default.toString();
+}

@@ -3,7 +3,7 @@ import './App.css';
 
 import {store} from './stores/index';
 
-import IntroPage from './component/IntoPage';
+import IntroPage from './component/ImgArea/WorkArea';
 import { Provider } from 'react-redux';
 import ToolsPanel from './component/ToolsArea';
 

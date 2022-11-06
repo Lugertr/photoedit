@@ -3,9 +3,10 @@ import { UsedFilters } from "../../types/Filters";
 
 interface Props {
     filter: UsedFilters;
-    imgId: number | null;
+    imgStyle: string | undefined;
     inputFunc: (ref: React.RefObject<HTMLInputElement>, id: number) => void
-    resFunc:(ref: React.RefObject<HTMLInputElement>, id: number) => void;
+    resFunc:(ref: React.RefObject<HTMLInputElement>, id: number) => void
+    mouseUpEvFunc: ()=>void;
 }
 
 const InputToolComp = (props: Props)=> {
@@ -20,13 +21,14 @@ const InputToolComp = (props: Props)=> {
 
     useEffect(()=>{
         props.resFunc(InputRef,props.filter.id)},
-        [props.imgId])   
+        [props.imgStyle])   
     
     return (
         <div className="toolBtn">
             <span>{props.filter.name}</span>
             <input ref={InputRef} type="range" 
-                onInput={()=>props.inputFunc(InputRef,props.filter.id)} 
+                onInput={()=>props.inputFunc(InputRef,props.filter.id)}
+                onMouseUp={()=>props.mouseUpEvFunc()}
                 min={props.filter.min} max={props.filter.max}/>
             <button className="resetFilter" onClick={resetFilterBtn}>RESET</button>
         </div>

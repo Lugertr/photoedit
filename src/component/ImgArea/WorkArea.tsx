@@ -1,14 +1,16 @@
 import React, {useState, useRef} from "react";
 import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import {  ImgCssStyles, ImgData, ImgActionTypes, ImgStateAction  } from "../types/ImgType";
-import {  DefFiltersState} from "../types/Filters";
+import {  ImgData, ImgActionTypes, ImgStateAction, 
+    ImgCssStyles, HistoryElem, ImgCurrentChanges  } from "../../types/ImgType";
+import {  DefFiltersState} from "../../types/Filters";
 
-import ImgBtn from "./UI/ImgBtn";
-import DragComp from "./DragComp";
+import CanvasArea from "./ImgAreaComps/CanvasArea"
+import DragComp from "./ImgAreaComps/DragComp";
+import ImgHistoryTable from "./ImgAreaComps/ImgHistory";
 
-const IntroPage = () => {
+const WorkArea = () => {
 
     const dispatch = useDispatch()
     const {img: curImg, imgList} = useTypedSelector(state => state.imgData)
@@ -21,12 +23,15 @@ const IntroPage = () => {
             { 
                 if (!imgs[i].type.includes('image') || imgList.find((img)=>img.name==imgs[i].name))
                     continue
+                console.log(URL.createObjectURL(imgs[i]))
                 const newImg = {id: imgList.length+i,
                                 name: imgs[i].name,
-                                style: {content:'',
-                                filter: DefFiltersState()} as ImgCssStyles,
+                                state: {
+                                    style: {filter: DefFiltersState()} as ImgCssStyles,
+                                    canvasSrc: null,
+                                } as ImgCurrentChanges,
                                 src:URL.createObjectURL(imgs[i]),
-                                history:[] as string[]}
+                                history:[] as HistoryElem[]}
                 newImgs.push(newImg)
             }
         if (!newImgs.length)
@@ -53,22 +58,24 @@ const saveImg = () => {
 }
 
 
-
 return (
     <div className="imgArea">
-        {(!!imgList.length)? 
-            <div className="ImgNameList">
-                {imgList.map(imgData => <ImgBtn key={imgData.id} {...{img: imgData,setImg,delImg}}/>)}
-            </div>: undefined}
-        <DragComp {...{curImg,addImgInList}}></DragComp>
+
+        {(imgList.length)? <CanvasArea {...{curImg,imgList,
+                                        setImg,delImg}}></CanvasArea>:
+        <DragComp {...{addImgInList}}></DragComp>}
+        
         <input type="file" ref={InputFileRef}  accept='image/*' onChange={inputLoadFunc} className="inputImg" hidden></input>
         <div className="imgBtnArea">
             <button className='imgAreaBtn add' onClick={()=>InputFileRef.current?.click()}>Загрузить</button>
             <button className='imgAreaBtn save' onClick={saveImg}>Сохранить</button>
+        
         </div>
+        
+        {(curImg)? <ImgHistoryTable img={curImg}/>:undefined}
     </div>
 )
 
 }
 
-export default IntroPage
+export default WorkArea

@@ -35,24 +35,34 @@ function removeImg(state:ImgState,payload: ImgData):ImgState {
     return {...state,img: newImgList[curImgId], imgList: newImgList}
 }
 
+function changeImgInImgList(modImg: ImgData,arr: ImgData[]) {
+    return arr.map((img)=> (img.id == modImg.id)? modImg: img)
+}
+
 export const imgListReducer = (state: ImgState = defaultState, 
-                               action: ImgStateAction): ImgState => {
+                                action: ImgStateAction): ImgState => {
     switch (action.type) {
         case ImgActionTypes.ADD_IMG:
             return {...state, imgList: [...state.imgList, ...action.payload]}
+
         case ImgActionTypes.SET_IMG:
             return {...state, img: setImg(state.imgList,action.payload)}
+
         case ImgActionTypes.REMOVE_IMG:
             return removeImg(state,action.payload)
-        case ImgActionTypes.CORRECT_IMG:
-            let modifedImg = {...state.img, 
-                            style: action.payload,
-                            //history: [...state!.img!.history,action.payload]
-                        } as ImgData;
-            //console.log(modifedImg.history)
+
+        case ImgActionTypes.SET_IMG_CHANGES:
+            let modifedImg = {...state.img, state: action.payload,} as ImgData;
             return {...state, img: modifedImg,
-                imgList: state.imgList.map((img)=> (img.id==modifedImg.id)? modifedImg:img), }
-        //return [...state]
+                imgList: changeImgInImgList(modifedImg, state.imgList) }
+        
+        case ImgActionTypes.ADD_IN_IMG_HISTORY:
+                if (state.img) {
+                    const newHistory = [...state.img.history, action.payload]
+                    const newImg = {...state.img, history: newHistory};
+                    return {...state, img: newImg, imgList: changeImgInImgList(newImg, state.imgList)}
+                }
+                return state    
         default:
             return state
     }

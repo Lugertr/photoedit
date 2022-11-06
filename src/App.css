@@ -1,4 +1,12 @@
-
+*{
+    -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
 .App{
     width: 100vw;
     height: 100vh;
@@ -53,8 +61,18 @@
     cursor: pointer;
 }
 
-.img{
+.ImgArea{
+    overflow: hidden;
+    position: relative;
+}
 
+.img{
+}
+.canvas{
+    background-color: transparent;
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }
 
 .save{
@@ -106,4 +124,15 @@
 .resetFilter{
     width: 50px;
     height: 25px;
+}
+
+.history{
+    position: absolute;
+    right: 0;
+    width: 10%;
+    height: 20%;
+    background-color: gray;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: scroll;
 }

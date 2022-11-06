@@ -1,16 +1,13 @@
-const BtnToolComp = ({name, inputFunc, resFunc}:{
-    name:string,
-    ref: React.RefObject<HTMLInputElement>,
-    max: string,
-    min: string,
-    inputFunc: () => void,
-    resFunc:() => void}) => {
+import { UsedDrawTools } from "../../types/DrawTools"
+
+const BtnToolComp = ({tool, inputFunc}:{
+    tool: UsedDrawTools,
+    inputFunc: (id: number) => void,}) => {
 
 return (
 <div className="toolBtn">
-<span>{name}</span>
-<button onInput={inputFunc}/>
-<button className="resetFilter" onClick={resFunc}>RESET</button>
+<span>{tool.name}</span>
+<button onClick={()=>inputFunc(tool.id)}/>
 </div>
 )       
 
