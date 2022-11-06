@@ -1,10 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import {configureStore } from "@reduxjs/toolkit";
 
-import {imgListReducer} from "./imgListReducer";
+import {imgStateReducer} from "./imgListReducer";
+import { ToolStateReducer } from "./toolState";
 
 const rootReducer = combineReducers({
-    imgData: imgListReducer,
+    imgState: imgStateReducer,
+    toolState:ToolStateReducer,
 })
 
 export const store = configureStore({

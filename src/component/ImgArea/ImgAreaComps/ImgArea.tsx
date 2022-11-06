@@ -73,7 +73,7 @@ const ImgArea = ({curImg} : {
             if (drawStatus && context) {
                 context.fillStyle = 'black';
                 context.strokeStyle = 'black';
-                context.lineWidth = 20;
+                context.lineWidth = 100;
                 const coords = canvasRef.current!.getBoundingClientRect(); 
                 context.lineTo(e.pageX - coords.left , e.pageY - coords.top);
                 context.stroke()

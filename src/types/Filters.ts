@@ -1,15 +1,6 @@
+import { FilterRangePar } from "./ToolsType";
 
-export interface UsedFilters {
-    id: number;
-    name: string;
-    par: string;
-    min: number;
-    max:number;
-    default: number;
-    units: string;
-}
-
-export const filters: UsedFilters[] = [
+export const filters: FilterRangePar[] = [
     {id:0, name:'grayscale',par:'grayscale',
     min:0, max:100, default: 0, units:'%'},
 

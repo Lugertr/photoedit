@@ -39,7 +39,7 @@ function changeImgInImgList(modImg: ImgData,arr: ImgData[]) {
     return arr.map((img)=> (img.id == modImg.id)? modImg: img)
 }
 
-export const imgListReducer = (state: ImgState = defaultState, 
+export const imgStateReducer = (state: ImgState = defaultState, 
                                 action: ImgStateAction): ImgState => {
     switch (action.type) {
         case ImgActionTypes.ADD_IMG:

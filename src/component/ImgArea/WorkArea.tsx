@@ -13,7 +13,7 @@ import ImgHistoryTable from "./ImgAreaComps/ImgHistory";
 const WorkArea = () => {
 
     const dispatch = useDispatch()
-    const {img: curImg, imgList} = useTypedSelector(state => state.imgData)
+    const {img: curImg, imgList} = useTypedSelector(state => state.imgState)
 
     const InputFileRef = useRef<HTMLInputElement>(null);
 

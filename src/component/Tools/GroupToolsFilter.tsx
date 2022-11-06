@@ -46,7 +46,7 @@ const GroupToolsFilter = ({curImg}:{curImg: ImgData | null}) => {
             <ToolsOpenBtn {...{status:openMenu,openMenuFunc:setOpenMenu}}>Фильтры</ToolsOpenBtn>
             {(openMenu) ? filters.map((filter) => 
                 <InputToolComp key={filter.id} 
-                {...{filter, imgStyle: curImg!.state.style.filter,
+                {...{rangePar: filter, CurPar: curImg!.state.style.filter,
                         inputFunc:rangeChangeFunc, resFunc: defaultValueSet,
                         mouseUpEvFunc:saveHistory}}
                 />) :undefined}

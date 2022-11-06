@@ -1,36 +1,36 @@
 import { useEffect,useRef } from "react";
-import { UsedFilters } from "../../types/Filters";
+import {InputRangePar} from "../../types/ToolsType"
 
 interface Props {
-    filter: UsedFilters;
-    imgStyle: string | undefined;
+    rangePar: InputRangePar ;
+    CurPar: string | undefined;
     inputFunc: (ref: React.RefObject<HTMLInputElement>, id: number) => void
     resFunc:(ref: React.RefObject<HTMLInputElement>, id: number) => void
-    mouseUpEvFunc: ()=>void;
+    mouseUpEvFunc: ()=>void | null;
 }
 
 const InputToolComp = (props: Props)=> {
 
     const InputRef = useRef<HTMLInputElement>(null)
-    const resetFilterBtn = () => {
+    const resetBtn = () => {
         if (InputRef) {
-            InputRef.current!.value = props.filter.default.toString();
-            props.inputFunc(InputRef,props.filter.id)
+            InputRef.current!.value = props.rangePar.default.toString();
+            props.inputFunc(InputRef,props.rangePar.id)
         }
         }                               
 
     useEffect(()=>{
-        props.resFunc(InputRef,props.filter.id)},
-        [props.imgStyle])   
+        props.resFunc(InputRef,props.rangePar.id)},
+        [props.CurPar])   
     
     return (
         <div className="toolBtn">
-            <span>{props.filter.name}</span>
+            <span>{props.rangePar.name}</span>
             <input ref={InputRef} type="range" 
-                onInput={()=>props.inputFunc(InputRef,props.filter.id)}
+                onInput={()=>props.inputFunc(InputRef,props.rangePar.id)}
                 onMouseUp={()=>props.mouseUpEvFunc()}
-                min={props.filter.min} max={props.filter.max}/>
-            <button className="resetFilter" onClick={resetFilterBtn}>RESET</button>
+                min={props.rangePar.min} max={props.rangePar.max}/>
+            <button className="resetBtn" onClick={resetBtn}>RESET</button>
         </div>
     )       
 }
