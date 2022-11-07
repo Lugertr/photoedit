@@ -2,12 +2,14 @@ import {  useRef, useEffect, useState } from "react";
 
 import { ImgData, HistoryElem, ImgActionTypes, ImgCurrentChanges} from "../../../types/ImgType";
 
+import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 
 const ImgArea = ({curImg} : {  
                     curImg: ImgData | null }) => {
 
         const dispatch = useDispatch()
+        const {tool , par} = useTypedSelector(state => state.toolState)
 
         const [drawStatus, setDrawStatus] = useState<boolean>(false);
         const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -16,7 +18,10 @@ const ImgArea = ({curImg} : {
 
 
         useEffect(()=>{
-            if (!curImg)
+            if (!curImg || 
+                (curImg.history.length &&
+                curImg?.state.canvasSrc===
+                curImg.history[curImg.history.length-1].status.canvasSrc))
                 return
             //canvasRef.current!.onmousedown = (e)=>startDraw(e);
             imgRef.current!.src = curImg.src;
@@ -25,7 +30,6 @@ const ImgArea = ({curImg} : {
                 canvasRef.current!.height = imgRef.current!.height;
 
                 const context = canvasRef.current!.getContext("2d");
-                context!.clearRect(0,0,imgRef.current!.width, imgRef.current!.height)
 
                 if (curImg.state.canvasSrc) {
                     let img = new Image()
@@ -34,33 +38,42 @@ const ImgArea = ({curImg} : {
                         context!.drawImage(img,0,0,imgRef.current!.width, imgRef.current!.height)
                     }
                 }
+                else 
+                context!.clearRect(0,0,imgRef.current!.width, imgRef.current!.height)
             }
 
-        }, [curImg?.src, curImg?.state.canvasSrc])    
+        }, [curImg?.src, curImg?.state.canvasSrc]) 
 
         useEffect(()=>{
-            console.log(curImg!.state.style)
-            if (drawStatus) {
-                canvasRef.current!.onmousemove = draw;
-                canvasRef.current!.onmouseup = stopDraw;
-                canvasRef.current!.onmouseout = stopDraw;
-            }
-            else {
-                canvasRef.current!.onmousemove = null;
-                canvasRef.current!.onmouseup = null;
-                canvasRef.current!.onmouseout = null;
-            }
-        }, [drawStatus])
+            if (!tool)
+                return
 
-        function startDraw(e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) {
+            if (drawStatus) {
+                    
+                    
+
+                    canvasRef.current!.onmousemove = draw;
+                    canvasRef.current!.onmouseup = stopDraw;
+                    canvasRef.current!.onmouseout = stopDraw;
+                }
+            else {
+                    canvasRef.current!.onmousedown = startDraw;
+                    canvasRef.current!.onmousemove = null;
+                    canvasRef.current!.onmouseup = null;
+                    canvasRef.current!.onmouseout = null;
+                }
+        }, [tool,drawStatus])
+
+
+        function startDraw(e: MouseEvent) {
             const context = canvasRef.current!.getContext("2d");
             console.log(context)
             console.log(drawStatus)
             if (!drawStatus && context) {
                 setDrawStatus(true)
-                context.fillStyle = 'black';
-                context.strokeStyle = 'black';
-                context.lineWidth = 20;
+                context.fillStyle = par.color
+                context.strokeStyle = par.lineColor
+                context.lineWidth = par.width
                 context.beginPath();
                 const coords = canvasRef.current!.getBoundingClientRect(); 
 
@@ -71,9 +84,9 @@ const ImgArea = ({curImg} : {
         function draw(e: MouseEvent) {
             const context = canvasRef.current!.getContext("2d");
             if (drawStatus && context) {
-                context.fillStyle = 'black';
-                context.strokeStyle = 'black';
-                context.lineWidth = 100;
+                context.fillStyle = par.color
+                context.strokeStyle = par.lineColor
+                context.lineWidth = par.width
                 const coords = canvasRef.current!.getBoundingClientRect(); 
                 context.lineTo(e.pageX - coords.left , e.pageY - coords.top);
                 context.stroke()
@@ -101,7 +114,7 @@ const ImgArea = ({curImg} : {
         return (
             <div className="ImgArea">
                 <img className="img" ref={imgRef} style={curImg!.state.style} />
-                <canvas className="canvas" onMouseDown={(e)=>startDraw(e)}  ref={canvasRef} ></canvas>
+                <canvas className="canvas"  ref={canvasRef} ></canvas>
             </div>
         )
 
