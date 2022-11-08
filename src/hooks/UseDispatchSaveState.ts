@@ -3,9 +3,9 @@ import { ImgActionTypes } from "../types/ImgType";
 
 import { ImgCssStyles, HistoryElem, ImgCurrentChanges } from "../types/ImgType";
 
-const dispatch = useDispatch()
 
-export function saveState(imgCss:ImgCssStyles, canvasStateUrl: string) {
+export function useSaveState(imgCss:ImgCssStyles, canvasStateUrl: string) {
+    const dispatch = useDispatch()
     dispatch({type: ImgActionTypes.ADD_IN_IMG_HISTORY, 
         payload: {type:"brush", 
         status: {style: {...imgCss},

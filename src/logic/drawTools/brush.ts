@@ -3,8 +3,10 @@ import { ImgCssStyles } from "../../types/ImgType";
 import { ToolPar } from "../../types/ToolsType";
 
 export class Brush extends Tool {
-    constructor(canvas: HTMLCanvasElement,par: ToolPar,ImgCss: ImgCssStyles) {
-        super(canvas,par, ImgCss)
+    constructor(canvas: HTMLCanvasElement,par: ToolPar,
+        ImgCss: ImgCssStyles,
+        saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
+        super(canvas,par, ImgCss,saveStateFunc)
         this.eventsListen()
     }
 
@@ -34,9 +36,10 @@ export class Brush extends Tool {
     }
 
     mouseUpEvent() {
-        this.saveCanvasState();
-        this.mouseDownState = true;
+        if (this.mouseDownState) {
+            this.saveCanvasState();
+            this.mouseDownState = false;
+        }
     }
-
 
 }
