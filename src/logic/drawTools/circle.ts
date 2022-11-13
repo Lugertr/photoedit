@@ -2,22 +2,17 @@ import { Tool } from "../tool";
 import { ImgCssStyles } from "../../types/ImgType";
 import { ToolPar } from "../../types/ToolsType";
 
-export class Eraser extends Tool {
-    constructor(
-        canvas: HTMLCanvasElement,
-        width: number,
+export class Circle extends Tool {
+    x: number = 0;
+    y: number = 0;
+    canvasSrc: string = '';
+
+    constructor(canvas: HTMLCanvasElement,par: ToolPar,
         ImgCss: ImgCssStyles,
         saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
-        const eraserPar: ToolPar = {
-                width: width,
-                color: "white",
-                lineColor: "white"
-                //transparent
-            }
-        super(canvas,eraserPar, ImgCss,saveStateFunc)
+        super(canvas,par, ImgCss,saveStateFunc)
         this.eventsListen()
     }
-
     eventsListen() {
         this.canvas.onmousedown = this.mouseDownEvent.bind(this);
         this.canvas.onmousemove = this.mouseMoveEvent.bind(this);
@@ -26,22 +21,34 @@ export class Eraser extends Tool {
     }
 
     mouseDownEvent(e: MouseEvent) {
-        if (e.button === 0) {
-            if (this.ctx) {
-                this.ctx.globalCompositeOperation = "destination-out";
-                this.ctx.beginPath();
-                const coords = this.canvas.getBoundingClientRect(); 
-                this.ctx.moveTo(e.pageX - coords.left , e.pageY - coords.top) 
-            }
+        if (e.button === 0 && this.ctx) {
+            this.canvasSrc = this.canvas.toDataURL()
+            const coords = this.canvas.getBoundingClientRect(); 
+            this.x = e.pageX - coords.left;
+            this.y = e.pageY - coords.top;
         }
         this.mouseDownState = true;
     }
 
     mouseMoveEvent(e: MouseEvent) {
         if (this.mouseDownState && this.ctx) {
+            const img = new Image()
+            img.src = this.canvasSrc;
+
             const coords = this.canvas.getBoundingClientRect();  
-            this.ctx.lineTo(e.pageX - coords.left , e.pageY - coords.top);
-            this.ctx.stroke()
+            const width = e.pageX - coords.left -this.x;
+            const height = e.pageY - coords.top -this.y;
+            const r = Math.sqrt(width**2 + height**2)
+
+            img.onload = () => {
+
+            this.ctx!.clearRect(0,0, this.canvas.width,this.canvas.height)
+            this.ctx!.drawImage(img,0,0,this.canvas.width,this.canvas.height)
+            this.ctx!.beginPath()
+            this.ctx!.arc(this.x, this.y, r, 0, 2*Math.PI)
+            this.ctx!.fill()
+            this.ctx!.stroke()
+            }
         }
     }
 

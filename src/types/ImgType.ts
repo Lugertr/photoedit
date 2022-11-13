@@ -1,5 +1,6 @@
 export interface ImgCssStyles{
-    filter?: string,
+    filter: string,
+    transform: string,
     
 }
 

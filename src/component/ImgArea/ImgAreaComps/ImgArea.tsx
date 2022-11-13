@@ -1,11 +1,17 @@
 import {  useRef, useEffect, useState } from "react";
 
 import { ImgData, HistoryElem, ImgActionTypes, ImgCurrentChanges, ImgCssStyles} from "../../../types/ImgType";
-
+import { ToolPar } from "../../../types/ToolsType";
 import { Tool } from "../../../logic/tool";
 import {Brush} from "../../../logic/drawTools/brush"
+
+import { Eraser } from "../../../logic/drawTools/eraser";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
+import { Circle } from "../../../logic/drawTools/circle";
+import { Square } from "../../../logic/drawTools/square";
+import { Line } from "../../../logic/drawTools/line";
+import { addText } from "../../../logic/drawTools/text";
 
 const ImgArea = ({curImg} : {  
                     curImg: ImgData | null }) => {
@@ -63,6 +69,26 @@ const ImgArea = ({curImg} : {
 
             if (tool==='Кисть') {
                 new Brush(canvasRef.current!, par, 
+                    curImg!.state.style,useSaveState)
+            }
+            else if (tool==='Ластик') {
+                new Eraser(canvasRef.current!, par.width, 
+                    curImg!.state.style,useSaveState)
+            }
+            else if (tool==='Квадрат') {
+                new Square(canvasRef.current!, par, 
+                    curImg!.state.style,useSaveState)
+            }
+            else if (tool==='линия'){
+                new Line(canvasRef.current!, par, 
+                    curImg!.state.style,useSaveState)
+            }
+            else if (tool==='Круг') {
+                new Circle(canvasRef.current!, par, 
+                    curImg!.state.style,useSaveState)
+            }
+            else if (tool==='Текст') {
+                new addText(canvasRef.current!, par, 
                     curImg!.state.style,useSaveState)
             }
         }

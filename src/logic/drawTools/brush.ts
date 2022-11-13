@@ -18,13 +18,14 @@ export class Brush extends Tool {
     }
 
     mouseDownEvent(e: MouseEvent) {
-        this.mouseDownState = true;
-
-        if (this.ctx) {
-            this.ctx.beginPath();
-            const coords = this.canvas.getBoundingClientRect(); 
-            this.ctx.moveTo(e.pageX - coords.left , e.pageY - coords.top) 
+        if (e.button === 0) {
+            if (this.ctx) {
+                this.ctx.beginPath();
+                const coords = this.canvas.getBoundingClientRect(); 
+                this.ctx.moveTo(e.pageX - coords.left , e.pageY - coords.top) 
+            }
         }
+        this.mouseDownState = true;
     }
 
     mouseMoveEvent(e: MouseEvent) {
@@ -35,8 +36,8 @@ export class Brush extends Tool {
         }
     }
 
-    mouseUpEvent() {
-        if (this.mouseDownState) {
+    mouseUpEvent(e: MouseEvent) {
+        if (e.button === 0 && this.mouseDownState) {
             this.saveCanvasState();
             this.mouseDownState = false;
         }

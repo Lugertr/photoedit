@@ -36,7 +36,7 @@ export interface InputRangePar {
     default: number;
 }
 
-export interface FilterRangePar extends InputRangePar {
+export interface RangeParInterface extends InputRangePar {
     par: string;
     units: string;
 }

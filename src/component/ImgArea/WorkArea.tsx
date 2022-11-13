@@ -5,6 +5,7 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import {  ImgData, ImgActionTypes, ImgStateAction, 
     ImgCssStyles, HistoryElem, ImgCurrentChanges  } from "../../types/ImgType";
 import {  DefFiltersState} from "../../types/Filters";
+import { DefSizeState } from "../../types/Size";
 
 import CanvasArea from "./ImgAreaComps/CanvasArea"
 import DragComp from "./ImgAreaComps/DragComp";
@@ -27,7 +28,7 @@ const WorkArea = () => {
                 const newImg = {id: imgList.length+i,
                                 name: imgs[i].name,
                                 state: {
-                                    style: {filter: DefFiltersState()} as ImgCssStyles,
+                                    style: {filter: DefFiltersState(), transform: DefSizeState()} as ImgCssStyles,
                                     canvasSrc: null,
                                 } as ImgCurrentChanges,
                                 src:URL.createObjectURL(imgs[i]),

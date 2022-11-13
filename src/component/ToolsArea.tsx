@@ -18,6 +18,7 @@ const ToolsPanel = () => {
         <div className="toolsPanel">
             <div>Инструменты</div>
             <GroupToolsFilter {...{curImg}}/>
+            <GroupToolsSize {...{curImg}}/>
             <GroupToolsCanvas/>
         </div>
     )       
