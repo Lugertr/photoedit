@@ -8,12 +8,10 @@ interface Props {
 
 const ToolsOpenBtn = (props: Props)=> {
     return (
-        <div className="toolBtn">
             <button className="toolsOpenBtn"
                 onClick={()=>props.openMenuFunc(!props.status)}>
             {props.children}
             </button>
-        </div>
     )       
 }
 

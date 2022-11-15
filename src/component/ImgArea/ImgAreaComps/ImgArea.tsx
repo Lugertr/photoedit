@@ -1,4 +1,4 @@
-import {  useRef, useEffect, useState } from "react";
+import {  useRef, useEffect, useState,WheelEvent } from "react";
 
 import { ImgData, HistoryElem, ImgActionTypes, ImgCurrentChanges, ImgCssStyles} from "../../../types/ImgType";
 import { ToolPar } from "../../../types/ToolsType";
@@ -13,6 +13,9 @@ import { Square } from "../../../logic/drawTools/square";
 import { Line } from "../../../logic/drawTools/line";
 import { addText } from "../../../logic/drawTools/text";
 
+import { scrollParInterface } from "../../../types/ScrollParInterface";
+import { Zoom } from "../../../logic/zoom";
+
 const ImgArea = ({curImg} : {  
                     curImg: ImgData | null }) => {
 
@@ -20,7 +23,6 @@ const ImgArea = ({curImg} : {
         const {tool , par} = useTypedSelector(state => state.toolState)
         const canvasRef = useRef<HTMLCanvasElement>(null)
         const imgRef = useRef<HTMLImageElement>(null)
-
 
 
         useEffect(()=>{
@@ -57,6 +59,7 @@ const ImgArea = ({curImg} : {
         useEffect(()=>{
             setTool()
         }, [tool,par,curImg?.state.style])
+
 
         function setTool() {
             if (!tool && 
@@ -109,7 +112,7 @@ const ImgArea = ({curImg} : {
 
 
         return (
-            <div className="ImgArea">
+            <div className="imgArea">
                 <img className="img" ref={imgRef} style={curImg!.state.style} />
                 <canvas className="canvas"  ref={canvasRef} ></canvas>
             </div>

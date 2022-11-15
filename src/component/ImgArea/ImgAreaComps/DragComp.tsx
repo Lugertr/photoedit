@@ -14,25 +14,20 @@ const DragComp = ({addImgInList} : {addImgInList:(Imgs: FileList) => void}) => {
         addImgInList(e.dataTransfer.files)
     }
 
-    return ( 
-        <div>
-            {(drag) ? 
-                <div className="dropArea Open"
-                onDragStart={(e) => dragHandler(e) }
-                onDragLeave={(e) => dragHandler(e,false) }
-                onDragOver={(e) => dragHandler(e)}
-                onDrop={(e)=> onDropHandler(e)}
-                >"Перенесите файлы в эту область"</div>
-                :
-                <div className="dropArea"
-                onDragStart={(e) => dragHandler(e) }
-                onDragLeave={(e) => dragHandler(e,false) }
-                onDragOver={(e) => dragHandler(e) }
-                >"Перетащите мышкой файлы"</div>
-            }
-        </div>
-    )       
-
+    if (drag) 
+        return (<div className="dropArea Open"
+        onDragStart={(e) => dragHandler(e) }
+        onDragLeave={(e) => dragHandler(e,false) }
+        onDragOver={(e) => dragHandler(e)}
+        onDrop={(e)=> onDropHandler(e)}
+        >"Перенесите файлы в эту область"</div>)
+    
+    return (<div className="dropArea"
+    onDragStart={(e) => dragHandler(e) }
+    onDragLeave={(e) => dragHandler(e,false) }
+    onDragOver={(e) => dragHandler(e) }
+    >"Перетащите мышкой файлы"</div>)
+    
 }
 
 export default DragComp

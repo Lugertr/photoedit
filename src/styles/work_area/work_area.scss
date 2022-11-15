@@ -1,0 +1,75 @@
+@import './history.scss';
+@import './img_field.scss';
+
+.workArea{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%; 
+    height: 100%;  
+    position: relative; 
+}
+
+// nav
+
+.imgBtnArea{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    background-color: blueviolet;
+}
+
+.imgAreaBtn{
+    margin: 3px;
+    height: 50px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.save{
+    background-color: red;
+}
+
+.add{
+    background-color: aquamarine;
+}
+
+//files names
+
+.ImgNameList{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    flex-wrap: nowrap;
+    margin-bottom: 5px;
+    z-index: 2;
+    background-color: blueviolet;
+
+}
+
+.ImgBtn{
+    height: 100%;
+    background-color: brown;
+    display: grid;
+    grid-template-columns: 85% 15%;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+
+.delBtn{
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    cursor: pointer;
+}
+

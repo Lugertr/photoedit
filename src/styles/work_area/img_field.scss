@@ -1,0 +1,42 @@
+.img_field{
+    width: 100%;
+    height: 100%;
+    background-color: azure;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    transform-origin: 0px 0px;
+    transform: scale(1) translate(0px, 0px);
+}
+
+.imgArea{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    height: 100%;  
+    position: relative;
+}
+
+
+.img{
+
+}
+.canvas{
+    background-color: transparent;
+    position: absolute;
+}
+
+
+.dropArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: azure;
+    border: 5px dashed black;
+}

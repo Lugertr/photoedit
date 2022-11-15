@@ -1,0 +1,12 @@
+.history{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10%;
+    height: 20%;
+    background-color: gray;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow: scroll;
+    row-gap: 2px;
+}

@@ -2,10 +2,10 @@ import { RangeParInterface } from "./ToolsType";
 
 export const sizes:RangeParInterface[] = [
     {id:0, name:'scaleX',par:'scaleX',
-    min:0.01, max:4, default: 1, units:''},
+    min:1, max:500, default: 100, units:'%'},
 
     {id:1, name:'scaleY',par:'scaleY',
-    min:0.01, max:4, default: 1, units:''},
+    min:1, max:500, default: 100, units:'%'},
 
     {id:2, name:'rotateX',par:'rotateX',
     min:0, max:360, default: 0, units:'deg'},

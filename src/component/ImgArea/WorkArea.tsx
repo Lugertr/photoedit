@@ -9,7 +9,8 @@ import { DefSizeState } from "../../types/Size";
 
 import CanvasArea from "./ImgAreaComps/CanvasArea"
 import DragComp from "./ImgAreaComps/DragComp";
-import ImgHistoryTable from "./ImgAreaComps/ImgHistory";
+
+import ImgBtn from "../UI/ImgBtn";
 
 const WorkArea = () => {
 
@@ -60,20 +61,21 @@ const saveImg = () => {
 
 
 return (
-    <div className="imgArea">
+    <div className="workArea">
+        <div className="imgBtnArea">
+            <button className='imgAreaBtn add' onClick={()=>InputFileRef.current?.click()}>Загрузить</button>
+            <button className='imgAreaBtn save' onClick={saveImg}>Сохранить</button>
+        </div>
+        <div className="ImgNameList">
+                    {imgList.map(imgData => <ImgBtn key={imgData.id} {...{img: imgData,setImg,delImg}}/>)}
+        </div>
 
         {(imgList.length)? <CanvasArea {...{curImg,imgList,
                                         setImg,delImg}}></CanvasArea>:
         <DragComp {...{addImgInList}}></DragComp>}
         
         <input type="file" ref={InputFileRef}  accept='image/*' onChange={inputLoadFunc} className="inputImg" hidden></input>
-        <div className="imgBtnArea">
-            <button className='imgAreaBtn add' onClick={()=>InputFileRef.current?.click()}>Загрузить</button>
-            <button className='imgAreaBtn save' onClick={saveImg}>Сохранить</button>
         
-        </div>
-        
-        {(curImg)? <ImgHistoryTable img={curImg}/>:undefined}
     </div>
 )
 
