@@ -14,11 +14,18 @@ export interface HistoryElem  {
     status: ImgCurrentChanges
 }
 
+export interface SizePar {
+    x: number,
+    y: number,
+    scale: number,
+}
+
 
 export interface ImgData {
     id: number,
     name: string,
     state: ImgCurrentChanges,
+    size: SizePar,
     src: string,
     history: HistoryElem[],
 }
@@ -34,6 +41,7 @@ export enum ImgActionTypes {
     SET_IMG = "SET_IMG",
     REMOVE_IMG = "REMOVE_IMG",
     SET_IMG_CHANGES = "SET_IMG_CHANGES",
+    SET_IMG_SIZE = "SET_IMG_SIZE",
     ADD_IN_IMG_HISTORY = "ADD_IN_IMG_HISTORY"
 }
 
@@ -53,6 +61,10 @@ interface ImgStateSetChangesAction {
     type:ImgActionTypes.SET_IMG_CHANGES;
     payload: ImgCurrentChanges}
 
+interface ImgStateSetIMGAction {
+    type:ImgActionTypes.SET_IMG_SIZE;
+    payload: SizePar}
+
 interface ImgStateAddInImgHistory {
         type:ImgActionTypes.ADD_IN_IMG_HISTORY;
         payload: HistoryElem}
@@ -60,4 +72,4 @@ interface ImgStateAddInImgHistory {
 
 export type ImgStateAction = ImgStateAddAction | ImgStateGetAction 
                             | ImgStateRemoveAction | ImgStateSetChangesAction
-                            | ImgStateAddInImgHistory
+                            | ImgStateAddInImgHistory | ImgStateSetIMGAction

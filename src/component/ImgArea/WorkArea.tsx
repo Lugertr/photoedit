@@ -1,8 +1,8 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import {  ImgData, ImgActionTypes, ImgStateAction, 
+import {  ImgData, ImgActionTypes, ImgStateAction, SizePar,
     ImgCssStyles, HistoryElem, ImgCurrentChanges  } from "../../types/ImgType";
 import {  DefFiltersState} from "../../types/Filters";
 import { DefSizeState } from "../../types/Size";
@@ -28,6 +28,7 @@ const WorkArea = () => {
                 console.log(URL.createObjectURL(imgs[i]))
                 const newImg = {id: imgList.length+i,
                                 name: imgs[i].name,
+                                size: {x:0,y:0,scale:1} as SizePar,
                                 state: {
                                     style: {filter: DefFiltersState(), transform: DefSizeState()} as ImgCssStyles,
                                     canvasSrc: null,
@@ -56,7 +57,47 @@ const inputLoadFunc = () => {
 }
 
 const saveImg = () => {
-    console.log(curImg)
+    if (!curImg)
+        return
+    console.log('s')
+    const canvas = document.createElement("canvas")
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.src = curImg.src;
+    image.onload = () =>{
+        canvas.width = image.width;
+        canvas.height = image.height;
+        ctx!.filter = curImg.state.style.filter;
+
+        const reSizePar = curImg.state.style.transform.split(' ').map((mes)=>mes.match(/-?\d+(\.\d+)?/g))
+        console.log(reSizePar)
+        if (reSizePar[0] && reSizePar[1] && reSizePar[2] && reSizePar[3] && reSizePar[4]) {
+            ctx!.transform(+reSizePar[0]/100,+reSizePar[3],+reSizePar[4],+reSizePar[1]/100,(canvas.width/(+reSizePar[0]/100))/2,(canvas.height/(+reSizePar[1]/100))/2)
+            ctx!.rotate((+reSizePar[2]) * Math.PI / 180)
+        }
+        else {
+            ctx!.translate(canvas.width/2,canvas.height/2)
+        }
+        ctx!.drawImage(image,-canvas.width/2,-canvas.height/2,canvas.width,canvas.height)
+        const canvasImgSrc = curImg.history[curImg.history.length-1]?.status.canvasSrc;
+        if (canvasImgSrc) {
+            const canvasImg = new Image();
+            canvasImg.src = canvasImgSrc;
+            canvasImg.onload = () => {
+                ctx!.drawImage(canvasImg,-canvas.width/2,-canvas.height/2,canvas.width,canvas.height)
+                createDownloadLink(curImg.name, canvas.toDataURL())
+            }
+        }
+        else
+            createDownloadLink(curImg.name, canvas.toDataURL())    
+    }
+}
+
+function createDownloadLink(name:string, href: string) {
+    const link = document.createElement('a')
+    link.download = name;
+    link.href = href;
+    link.click()
 }
 
 

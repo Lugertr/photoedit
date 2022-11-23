@@ -1,5 +1,5 @@
 import { Tool } from "../tool";
-import { ImgCssStyles } from "../../types/ImgType";
+import { ImgCssStyles, SizePar } from "../../types/ImgType";
 import { ToolPar } from "../../types/ToolsType";
 
 export class Circle extends Tool {
@@ -9,8 +9,9 @@ export class Circle extends Tool {
 
     constructor(canvas: HTMLCanvasElement,par: ToolPar,
         ImgCss: ImgCssStyles,
+        imgSize: SizePar,
         saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
-        super(canvas,par, ImgCss,saveStateFunc)
+        super(canvas,par, ImgCss,imgSize,saveStateFunc)
         this.eventsListen()
     }
     eventsListen() {
@@ -24,8 +25,8 @@ export class Circle extends Tool {
         if (e.button === 0 && this.ctx) {
             this.canvasSrc = this.canvas.toDataURL()
             const coords = this.canvas.getBoundingClientRect(); 
-            this.x = e.pageX - coords.left;
-            this.y = e.pageY - coords.top;
+            this.x = this.mathX(e,coords.left);
+            this.y = this.mathY(e,coords.top);
         }
         this.mouseDownState = true;
     }
@@ -36,8 +37,8 @@ export class Circle extends Tool {
             img.src = this.canvasSrc;
 
             const coords = this.canvas.getBoundingClientRect();  
-            const width = e.pageX - coords.left -this.x;
-            const height = e.pageY - coords.top -this.y;
+            const width = this.mathX(e,coords.left) -this.x;
+            const height = this.mathY(e,coords.top) -this.y;
             const r = Math.sqrt(width**2 + height**2)
 
             img.onload = () => {

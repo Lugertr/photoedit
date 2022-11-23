@@ -7,16 +7,13 @@ export const sizes:RangeParInterface[] = [
     {id:1, name:'scaleY',par:'scaleY',
     min:1, max:500, default: 100, units:'%'},
 
-    {id:2, name:'rotateX',par:'rotateX',
+    {id:2, name:'rotate',par:'rotate',
     min:0, max:360, default: 0, units:'deg'},
 
-    {id:3, name:'rotateY',par:'rotateY',
+    {id:3, name:'skewX',par:'skewX',
     min:0, max:360, default: 0, units:'deg'},
 
-    {id:4, name:'skewX',par:'skewX',
-    min:0, max:360, default: 0, units:'deg'},
-
-    {id:5, name:'skewY',par:'skewY',
+    {id:4, name:'skewY',par:'skewY',
     min:0, max:360, default: 0, units:'deg'},
 
 ]

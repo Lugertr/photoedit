@@ -34,7 +34,7 @@ export const ConvertFiltersToString = (ref: React.RefObject<HTMLInputElement>, i
         const regex = new RegExp(`${filters[id].par}\\([\\w|\\W]+?\\)`,'gm'); 
         const currentPar = imgFilter.match(regex);
         if (currentPar)
-            {  
+            {   
                 const newValue = currentPar[0].replace(/\D/g, '');
                 ref.current!.value = newValue
             }

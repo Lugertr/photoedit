@@ -1,8 +1,7 @@
-import {  useRef, useEffect, useState,WheelEvent } from "react";
+import {  useRef, useEffect, forwardRef, } from "react";
 
 import { ImgData, HistoryElem, ImgActionTypes, ImgCurrentChanges, ImgCssStyles} from "../../../types/ImgType";
-import { ToolPar } from "../../../types/ToolsType";
-import { Tool } from "../../../logic/tool";
+
 import {Brush} from "../../../logic/drawTools/brush"
 
 import { Eraser } from "../../../logic/drawTools/eraser";
@@ -13,20 +12,18 @@ import { Square } from "../../../logic/drawTools/square";
 import { Line } from "../../../logic/drawTools/line";
 import { addText } from "../../../logic/drawTools/text";
 
-import { scrollParInterface } from "../../../types/ScrollParInterface";
-import { Zoom } from "../../../logic/zoom";
+type Props = ImgData | null;
+type Ref = HTMLDivElement;
 
-const ImgArea = ({curImg} : {  
-                    curImg: ImgData | null }) => {
+const ImgArea = forwardRef<Ref, Props>((curImg, ref) => {
 
         const dispatch = useDispatch()
         const {tool , par} = useTypedSelector(state => state.toolState)
         const canvasRef = useRef<HTMLCanvasElement>(null)
         const imgRef = useRef<HTMLImageElement>(null)
 
-
         useEffect(()=>{
-            if (!curImg || 
+            if (!curImg ||
                 (curImg.history.length &&
                 curImg?.state.canvasSrc===
                 curImg.history[curImg.history.length-1].status.canvasSrc))
@@ -34,31 +31,16 @@ const ImgArea = ({curImg} : {
     
             //canvasRef.current!.onmousedown = (e)=>startDraw(e);
             imgRef.current!.src = curImg.src;
-            console.log(curImg!.state.style)
+
             imgRef.current!.onload = ()=> {
-                canvasRef.current!.width = imgRef.current!.width;
-                canvasRef.current!.height = imgRef.current!.height;
-                console.log(par)
-                const context = canvasRef.current!.getContext("2d");
-                canvasRef.current!.onmousedown = null;
-                setTool()
-            
-                if (curImg.state.canvasSrc) {
-                    let img = new Image()
-                    img.src = curImg.state.canvasSrc;
-                    img.onload = () => {
-                        context!.drawImage(img,0,0,imgRef.current!.width, imgRef.current!.height)
-                    }
-                }
-                else 
-                context!.clearRect(0,0,imgRef.current!.width, imgRef.current!.height)
+                reCreateCanvas()
             }
 
-        }, [curImg?.src, curImg?.state.style]) 
+        }, [curImg?.src, curImg?.state.style.transform]) 
 
         useEffect(()=>{
             setTool()
-        }, [tool,par,curImg?.state.style])
+        }, [tool,par,curImg?.state.style, curImg?.size])
 
 
         function setTool() {
@@ -71,28 +53,28 @@ const ImgArea = ({curImg} : {
             canvasRef.current!.onmousedown = null;
 
             if (tool==='Кисть') {
-                new Brush(canvasRef.current!, par, 
+                new Brush(canvasRef.current!, par, curImg!.size,
                     curImg!.state.style,useSaveState)
             }
             else if (tool==='Ластик') {
                 new Eraser(canvasRef.current!, par.width, 
-                    curImg!.state.style,useSaveState)
+                    curImg!.state.style,curImg!.size,useSaveState)
             }
             else if (tool==='Квадрат') {
                 new Square(canvasRef.current!, par, 
-                    curImg!.state.style,useSaveState)
+                    curImg!.state.style,curImg!.size,useSaveState)
             }
             else if (tool==='линия'){
                 new Line(canvasRef.current!, par, 
-                    curImg!.state.style,useSaveState)
+                    curImg!.state.style,curImg!.size,useSaveState)
             }
             else if (tool==='Круг') {
                 new Circle(canvasRef.current!, par, 
-                    curImg!.state.style,useSaveState)
+                    curImg!.state.style,curImg!.size,useSaveState)
             }
             else if (tool==='Текст') {
                 new addText(canvasRef.current!, par, 
-                    curImg!.state.style,useSaveState)
+                    curImg!.state.style,curImg!.size,useSaveState)
             }
         }
 
@@ -110,14 +92,38 @@ const ImgArea = ({curImg} : {
             })
         }
 
+        function reCreateCanvas() {
+            setCanvasSize()
+
+            const context = canvasRef.current!.getContext("2d");
+            canvasRef.current!.onmousedown = null;
+            setTool()
+            
+            if (curImg!.state.canvasSrc) {
+                let img = new Image()
+                img.src = curImg!.state.canvasSrc;
+                img.onload = () => {
+                    context!.drawImage(img,0,0,imgRef.current!.width, imgRef.current!.height)
+                }
+            }
+            else 
+                context!.clearRect(0,0,imgRef.current!.width, imgRef.current!.height)
+        }
+
+        function setCanvasSize() {
+            canvasRef.current!.width = imgRef.current!.width;
+            canvasRef.current!.height = imgRef.current!.height;
+        }
 
         return (
-            <div className="imgArea">
+            <div className="imgArea" ref={ref}>
                 <img className="img" ref={imgRef} style={curImg!.state.style} />
-                <canvas className="canvas"  ref={canvasRef} ></canvas>
+                <canvas className="canvas"  ref={canvasRef}></canvas>
+                <div className="imgBorder"></div>
             </div>
         )
 
-}
+    }
+)
 
 export default ImgArea

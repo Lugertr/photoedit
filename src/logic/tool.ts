@@ -1,5 +1,5 @@
 import { ToolPar } from "../types/ToolsType";
-import { ImgCssStyles } from "../types/ImgType";
+import { ImgCssStyles, SizePar } from "../types/ImgType";
 import { useSaveState } from "../hooks/UseDispatchSaveState";
 
 export class Tool {
@@ -7,11 +7,14 @@ export class Tool {
     ctx: CanvasRenderingContext2D | null;
     mouseDownState: boolean;
     imgCss: ImgCssStyles;
+    imgSize: SizePar;
     saveStateFunc: (imgCss: ImgCssStyles, canvasStateUrl: string) => void;
 
     constructor(canvas: HTMLCanvasElement,par: ToolPar,
         imgCss: ImgCssStyles,
+        imgSize: SizePar,
         saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
+        this.imgSize = imgSize;
         this.imgCss = imgCss;
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d')
@@ -24,6 +27,14 @@ export class Tool {
         this.DestroyEvents();
         this.saveStateFunc = saveStateFunc;
     }
+
+    mathY(e: MouseEvent, top: number) {
+        return (e.clientY - top) / this.imgSize.scale
+    }
+    mathX(e: MouseEvent, left: number) {
+        return (e.clientX  - left) / this.imgSize.scale
+    }
+
 
     saveCanvasState() {
         const canvasState = this.canvas.toDataURL();

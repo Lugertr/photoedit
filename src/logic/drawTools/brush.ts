@@ -1,12 +1,14 @@
 import { Tool } from "../tool";
-import { ImgCssStyles } from "../../types/ImgType";
+import { ImgCssStyles, SizePar } from "../../types/ImgType";
 import { ToolPar } from "../../types/ToolsType";
 
 export class Brush extends Tool {
     constructor(canvas: HTMLCanvasElement,par: ToolPar,
+        imgSize: SizePar,
         ImgCss: ImgCssStyles,
         saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
-        super(canvas,par, ImgCss,saveStateFunc)
+        super(canvas,par, ImgCss,imgSize,saveStateFunc)
+        this.imgSize = imgSize;
         this.eventsListen()
     }
 
@@ -17,12 +19,19 @@ export class Brush extends Tool {
         this.canvas.onmouseup = this.mouseUpEvent.bind(this);
     }
 
+    mathY(e: MouseEvent, top: number) {
+        return (e.clientY - top) / this.imgSize.scale
+    }
+    mathX(e: MouseEvent, left: number) {
+        return (e.clientX  - left) / this.imgSize.scale
+    }
+
     mouseDownEvent(e: MouseEvent) {
         if (e.button === 0) {
             if (this.ctx) {
                 this.ctx.beginPath();
                 const coords = this.canvas.getBoundingClientRect(); 
-                this.ctx.moveTo(e.pageX - coords.left , e.pageY - coords.top) 
+                this.ctx.moveTo(this.mathX(e,coords.left),this.mathY(e,coords.top)) 
             }
         }
         this.mouseDownState = true;
@@ -31,7 +40,7 @@ export class Brush extends Tool {
     mouseMoveEvent(e: MouseEvent) {
         if (this.mouseDownState && this.ctx) {
             const coords = this.canvas.getBoundingClientRect();  
-            this.ctx.lineTo(e.pageX - coords.left , e.pageY - coords.top);
+            this.ctx.lineTo(this.mathX(e,coords.left),this.mathY(e,coords.top));
             this.ctx.stroke()
         }
     }

@@ -1,5 +1,5 @@
 import { Tool } from "../tool";
-import { ImgCssStyles } from "../../types/ImgType";
+import { ImgCssStyles, SizePar } from "../../types/ImgType";
 import { ToolPar } from "../../types/ToolsType";
 
 export class addText extends Tool {
@@ -11,8 +11,9 @@ export class addText extends Tool {
 
     constructor(canvas: HTMLCanvasElement,par: ToolPar,
         ImgCss: ImgCssStyles,
+        imgSize: SizePar,
         saveStateFunc:  (imgCss: ImgCssStyles, canvasStateUrl: string) => void) {
-        super(canvas,par, ImgCss,saveStateFunc)
+        super(canvas,par, ImgCss,imgSize,saveStateFunc)
         this.eventsListen()
 
         this.ctx!.font = `${par.width}px serif`;
@@ -27,8 +28,8 @@ export class addText extends Tool {
             if (!this.mouseDownState) {
                 this.mes.length = 0;
                 const coords = this.canvas.getBoundingClientRect(); 
-                this.x = e.pageX - coords.left;
-                this.y = e.pageY - coords.top;
+                this.x = this.mathX(e,coords.left);
+                this.y = this.mathY(e,coords.top);
                 this.StartWrite()
             }
             else {
@@ -52,7 +53,7 @@ export class addText extends Tool {
     }
 
     keyDownWrite(e: KeyboardEvent) {
-        console.log(this.mouseDownState)
+
         if (this.mouseDownState && this.ctx) {
             if (e.code === e.key) {
                 if (e.code === 'Backspace' && this.mes.length) {
@@ -69,7 +70,6 @@ export class addText extends Tool {
             else {
                 this.mes.push(e.key);
             }
-            console.log(this.mes)
 
             const img = new Image()
             img.src = this.canvasSrc;

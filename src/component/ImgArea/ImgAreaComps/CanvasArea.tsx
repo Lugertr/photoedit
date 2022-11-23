@@ -1,15 +1,13 @@
 import {  useRef, useEffect, useState, WheelEvent } from "react";
 
-import { scrollParInterface } from "../../../types/ScrollParInterface";
-
-import { ImgData } from "../../../types/ImgType";
-import ImgBtn from "../../UI/ImgBtn";
+import { ImgActionTypes, ImgData,ImgStateAction,SizePar } from "../../../types/ImgType";
 
 import ImgHistoryTable from "./ImgHistory";
 
 import ImgArea from "./ImgArea";
 
 import { Zoom } from "../../../logic/zoom";
+import { useDispatch } from "react-redux";
 
 const CanvasArea = ({curImg,imgList, 
                 setImg,delImg} : {  
@@ -19,16 +17,24 @@ const CanvasArea = ({curImg,imgList,
 
 
         const imgFieldRef = useRef<HTMLDivElement>(null)
+        const imgRef = useRef<HTMLDivElement>(null)
+
+        const dispatch = useDispatch()
+
+        function changeImgPar(par: SizePar) {
+            dispatch({type: ImgActionTypes.SET_IMG_SIZE, payload: {...par}} as ImgStateAction)
+        }
 
         useEffect(()=>{
-            if (imgFieldRef.current)
-                new Zoom(imgFieldRef.current)
-        },[curImg?.src])                         
+            console.log(imgRef)
+            if (imgFieldRef.current && imgRef.current)
+                new Zoom(imgRef.current, imgFieldRef.current,changeImgPar,{...curImg!.size})
+        },[curImg?.src,imgFieldRef.current,imgRef.current])                         
 
         return (
             <div className="img_field" ref={imgFieldRef}>
                     {(!!curImg) ? 
-                    <ImgArea curImg={curImg}></ImgArea>:
+                    <ImgArea {...curImg} ref={imgRef} ></ImgArea>:
                     <h1>Нет картинки</h1>}
                 {(curImg)? <ImgHistoryTable img={curImg}/>:undefined}
             </div>

@@ -56,6 +56,12 @@ export const imgStateReducer = (state: ImgState = defaultState,
             return {...state, img: modifedImg,
                 imgList: changeImgInImgList(modifedImg, state.imgList) }
         
+        case ImgActionTypes.SET_IMG_SIZE:
+            let reSizeImg = {...state.img, size: action.payload,} as ImgData;
+            return {...state, img: reSizeImg,
+                imgList: changeImgInImgList(reSizeImg, state.imgList) }
+                
+
         case ImgActionTypes.ADD_IN_IMG_HISTORY:
                 if (state.img) {
                     const newHistory = [...state.img.history, action.payload]
