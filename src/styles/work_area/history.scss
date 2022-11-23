@@ -1,11 +1,19 @@
-.history{
+.historyArea{
     position: absolute;
+    top: 11%;
     right: 0;
     width: 10%;
     height: 30%;
-    background-color: gray;
+    background: $menuColor;
+    overflow-y: auto;
+
+    span{
+        margin-bottom: 10px;
+    }
+}
+
+.history{
     display: flex;
     flex-direction: column-reverse;
-    overflow: scroll;
-    row-gap: 2px;
+    row-gap: 5px;
 }

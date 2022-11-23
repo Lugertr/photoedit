@@ -19,14 +19,17 @@ const removeActions = (id: number) => {
     //РЕАЛИЗОВАТЬ ПОМЕТКУ ДЛЯ ВСЕХ ДЕЙСТВИЙ ЧТО ВЫШЕ
     //УДЕРЖИВАТЬ 3 СЕКУНДЫ ЧТОБЫ УДАЛИТЬ
 }
-        
 
         return (
-            <div className="history">
-                {(img && img.history.length) ? 
+            <div className="historyArea" onWheel={(e)=>e.stopPropagation()}>
+                <span>История</span>
+                <div className="history">
+                    {(img && img.history.length) ? 
                     img.history.map((action,ind) =>
                     <button onClick={()=>chooseState(action)} key={ind}>{action.type}</button>):
                     undefined}
+                </div>
+
             </div>
         )
 

@@ -1,3 +1,4 @@
+@import "./var";
 @import "./tool_panel/tool_panel.scss";
 @import "./work_area/work_area";
 @import './work_area/history.scss';
@@ -14,6 +15,11 @@
     -ms-user-select: none;       /* Internet Explorer/Edge */
     user-select: none;           /* Non-prefixed version, currently
                                   not supported by any browser */
+    font-size: 24px;
+    font-weight: 400;
+    color: $textColor;
+    text-align: center;
+    letter-spacing: 2px;
 }
 
 .App{
@@ -21,10 +27,27 @@
     width: 100vw;
     max-height: 100vh;
     max-width: 100vw;
-    background-color: aquamarine;
+    background-color: #E3E2DF;
     display:grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 12% 88%;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+button{
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $btnColor;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    &:hover{
+        background-color: $opColor;
+
+    }
 }

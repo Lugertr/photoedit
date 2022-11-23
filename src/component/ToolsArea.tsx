@@ -1,9 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { ImgActionTypes, ImgStateAction } from "../types/ImgType";
-import { filters } from "../types/Filters";
+
 
 import GroupToolsFilter from "./Tools/GroupToolsFilter";
 import GroupToolsCanvas from "./Tools/Canvas/GroupToolsCanvas";
@@ -16,7 +12,7 @@ const ToolsPanel = () => {
 
     return (
         <div className="toolsPanel">
-            <div>Инструменты</div>
+            <div className="toolTitle">Инструменты</div>
             <GroupToolsFilter {...{curImg}}/>
             <GroupToolsSize {...{curImg}}/>
             <GroupToolsCanvas/>

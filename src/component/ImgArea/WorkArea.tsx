@@ -104,8 +104,8 @@ function createDownloadLink(name:string, href: string) {
 return (
     <div className="workArea">
         <div className="imgBtnArea">
-            <button className='imgAreaBtn add' onClick={()=>InputFileRef.current?.click()}>Загрузить</button>
-            <button className='imgAreaBtn save' onClick={saveImg}>Сохранить</button>
+            <button className='imgAreaBtn' onClick={()=>InputFileRef.current?.click()}>Загрузить</button>
+            <button className='imgAreaBtn' onClick={saveImg}>Сохранить</button>
         </div>
         <div className="ImgNameList">
                     {imgList.map(imgData => <ImgBtn key={imgData.id} {...{img: imgData,setImg,delImg}}/>)}

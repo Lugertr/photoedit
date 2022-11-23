@@ -14,7 +14,7 @@ const ImgBtn = ({img,setImg, delImg}:{img:ImgData,
     return (
         <div className="ImgBtn" onClick={()=> setImg(img)}>
             <span>{img.name}</span>
-            <button className="delBtn" onClick={delImgHandler}/>
+            <button className="delBtn" onClick={delImgHandler}>X</button>
         </div>
     )       
 

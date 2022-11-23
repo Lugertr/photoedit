@@ -2,9 +2,9 @@
 @import './img_field.scss';
 
 .workArea{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-rows: 7% 3%;
+    
     width: 100%; 
     height: 100%;  
 }
@@ -16,25 +16,24 @@
     flex-direction: row;
     justify-content: flex-end;
     width: 100%;
+    height: 100%;
     z-index: 2;
     position: relative;
-    background-color: blueviolet;
+    background-color: $menuColor;
+    column-gap: 10px;
+    padding: 5px;
 }
 
 .imgAreaBtn{
-    margin: 3px;
-    height: 50px;
+    width: 15%;
     cursor: pointer;
-    margin-bottom: 10px;
+    background-color: $btnColor;
+    &:hover{
+        background-color: $opColor;
+    }
 }
 
-.save{
-    background-color: red;
-}
 
-.add{
-    background-color: aquamarine;
-}
 
 //files names
 
@@ -43,32 +42,44 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    overflow-x: auto;
     width: 100%;
-    height: 30px;
+    height: 100%;
     flex-wrap: nowrap;
-    margin-bottom: 5px;
+    column-gap: 2px;
+    flex:1;
     z-index: 2;
-    background-color: blueviolet;
+    background-color: $panelColor;
 
 }
 
 .ImgBtn{
     height: 100%;
-    background-color: brown;
+    max-width: 10%;
+    background-color: $btnColor;
+    border: 2px solid black;
     display: grid;
-    grid-template-columns: 85% 15%;
+    grid-template-columns: auto 30px;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
+    span{
+        overflow: hidden;
+        font-size: 12px;
+    }
+
 }
 
 
 .delBtn{
     height: 100%;
     width: 100%;
-    background-color: red;
+    background-color: $opColor;
+    font-size: 16px;
     cursor: pointer;
+    &:hover{
+        background-color: $btnColor;
+    }
 }
 

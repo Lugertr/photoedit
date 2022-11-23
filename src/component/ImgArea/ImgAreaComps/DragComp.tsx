@@ -20,13 +20,13 @@ const DragComp = ({addImgInList} : {addImgInList:(Imgs: FileList) => void}) => {
         onDragLeave={(e) => dragHandler(e,false) }
         onDragOver={(e) => dragHandler(e)}
         onDrop={(e)=> onDropHandler(e)}
-        >"Перенесите файлы в эту область"</div>)
+        >"Перенесите файлы сюда"</div>)
     
     return (<div className="dropArea"
     onDragStart={(e) => dragHandler(e) }
     onDragLeave={(e) => dragHandler(e,false) }
     onDragOver={(e) => dragHandler(e) }
-    >"Перетащите мышкой файлы"</div>)
+    >"Перенесите картинки в данную область или нажмите на кнопку загрузить"</div>)
     
 }
 
