@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/photoedit/static/css/main.74bf36d9.css",
+    "main.js": "/photoedit/static/js/main.43cec275.js",
+    "index.html": "/photoedit/index.html",
+    "main.74bf36d9.css.map": "/photoedit/static/css/main.74bf36d9.css.map",
+    "main.43cec275.js.map": "/photoedit/static/js/main.43cec275.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74bf36d9.css",
+    "static/js/main.43cec275.js"
+  ]
+}
