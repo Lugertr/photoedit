@@ -29,14 +29,13 @@ const ImgArea = forwardRef<Ref, Props>((curImg, ref) => {
                 curImg.history[curImg.history.length-1].status.canvasSrc))
                 return
     
-            //canvasRef.current!.onmousedown = (e)=>startDraw(e);
             imgRef.current!.src = curImg.src;
 
             imgRef.current!.onload = ()=> {
                 reCreateCanvas()
             }
 
-        }, [curImg?.src, curImg?.state.style.transform]) 
+        }, [curImg?.src, curImg?.state]) 
 
         useEffect(()=>{
             setTool()
@@ -81,7 +80,7 @@ const ImgArea = forwardRef<Ref, Props>((curImg, ref) => {
             function useSaveState(imgCss:ImgCssStyles, canvasStateUrl: string) {
 
             dispatch({type: ImgActionTypes.ADD_IN_IMG_HISTORY, 
-                payload: {type:"brush", 
+                payload: {type:tool, 
                 status: {style: {...imgCss},
                         canvasSrc: canvasStateUrl}} as HistoryElem})
             

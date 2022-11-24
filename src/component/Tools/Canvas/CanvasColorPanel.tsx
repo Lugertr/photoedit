@@ -1,8 +1,7 @@
-import { useEffect,useRef } from "react";
+import {useRef } from "react";
 
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { ToolPar } from "../../../types/ToolsType"
-import InputToolComp from "../../UI/InputToolComp";
 
 const CanvasColorPanel = ({changeParFunc}: {changeParFunc:(par: ToolPar)=> void}) => {
 

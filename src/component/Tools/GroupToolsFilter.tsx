@@ -1,13 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { ImgData, ImgStateAction,ImgActionTypes,HistoryElem, ImgCurrentChanges} from "../../types/ImgType";
+import { ImgData, ImgActionTypes,HistoryElem, ImgCurrentChanges} from "../../types/ImgType";
 
 import ToolsOpenBtn from "../UI/ToolsOpenBtn";
 
 import { filters, ConvertFiltersToString } from "../../types/Filters";
 import InputToolComp from "../UI/InputToolComp";
-//import ToolBtn from "../ToolMenu";
 
 const GroupToolsFilter = ({curImg}:{curImg: ImgData | null}) => {
 
@@ -34,10 +33,10 @@ const GroupToolsFilter = ({curImg}:{curImg: ImgData | null}) => {
         }
     }
 
-    const saveHistory = ()=>{
+    const saveHistory = (typeName: string)=>{
         if (!!curImg) {
             dispatch({type: ImgActionTypes.ADD_IN_IMG_HISTORY, 
-                payload:{type: "filter", status: {...curImg.state}} as HistoryElem})
+                payload:{type: typeName, status: {...curImg.state}} as HistoryElem})
         }
     } 
 

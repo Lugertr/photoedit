@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { useDispatch } from "react-redux";
 
-import { ImgData, ImgStateAction,ImgActionTypes } from "../../../types/ImgType";
 import { ToolActionTypes, ToolPar } from "../../../types/ToolsType";
 
 import ToolsOpenBtn from "../../UI/ToolsOpenBtn";

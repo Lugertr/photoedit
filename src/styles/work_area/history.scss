@@ -6,6 +6,7 @@
     height: 30%;
     background: $menuColor;
     overflow-y: auto;
+    z-index: 5;
 
     span{
         margin-bottom: 10px;

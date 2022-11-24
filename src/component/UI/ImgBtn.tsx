@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { ImgData } from "../../types/ImgType";
 
 const ImgBtn = ({img,setImg, delImg}:{img:ImgData,

@@ -1,13 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { ImgData, ImgStateAction,ImgActionTypes,HistoryElem, ImgCurrentChanges} from "../../types/ImgType";
+import { ImgData,ImgActionTypes,HistoryElem, ImgCurrentChanges} from "../../types/ImgType";
 
 import ToolsOpenBtn from "../UI/ToolsOpenBtn";
 
 import { sizes, ConvertSizesToString } from "../../types/Size";
 import InputToolComp from "../UI/InputToolComp";
-//import ToolBtn from "../ToolMenu";
 
 const GroupToolsSize = ({curImg}:{curImg: ImgData | null}) => {
 

@@ -1,6 +1,5 @@
 import { ToolPar } from "../types/ToolsType";
 import { ImgCssStyles, SizePar } from "../types/ImgType";
-import { useSaveState } from "../hooks/UseDispatchSaveState";
 
 export class Tool {
     canvas: HTMLCanvasElement;

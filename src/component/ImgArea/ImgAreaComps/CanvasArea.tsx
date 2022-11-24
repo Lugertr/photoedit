@@ -1,15 +1,13 @@
-import {  useRef, useEffect, useState, WheelEvent } from "react";
+import {  useRef, useEffect } from "react";
 
 import { ImgActionTypes, ImgData,ImgStateAction,SizePar } from "../../../types/ImgType";
-
-import ImgHistoryTable from "./ImgHistory";
 
 import ImgArea from "./ImgArea";
 
 import { Zoom } from "../../../logic/zoom";
 import { useDispatch } from "react-redux";
 
-const CanvasArea = ({curImg,imgList, 
+const CanvasArea = ({curImg,
                 setImg,delImg} : {  
                     curImg: ImgData | null, imgList: ImgData[],
                             setImg(img: ImgData): void,
@@ -26,7 +24,6 @@ const CanvasArea = ({curImg,imgList,
         }
 
         useEffect(()=>{
-            console.log(imgRef)
             if (imgFieldRef.current && imgRef.current)
                 new Zoom(imgRef.current, imgFieldRef.current,changeImgPar,{...curImg!.size})
         },[curImg?.src,imgFieldRef.current,imgRef.current])                         
@@ -36,7 +33,6 @@ const CanvasArea = ({curImg,imgList,
                     {(!!curImg) ? 
                     <ImgArea {...curImg} ref={imgRef} ></ImgArea>:
                     <h1>Нет картинки</h1>}
-                {(curImg)? <ImgHistoryTable img={curImg}/>:undefined}
             </div>
         )
 

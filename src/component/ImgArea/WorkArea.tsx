@@ -1,4 +1,4 @@
-import React, {useState, useRef, } from "react";
+import { useRef, } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
@@ -11,6 +11,7 @@ import CanvasArea from "./ImgAreaComps/CanvasArea"
 import DragComp from "./ImgAreaComps/DragComp";
 
 import ImgBtn from "../UI/ImgBtn";
+import ImgHistoryTable from "./ImgAreaComps/ImgHistory";
 
 const WorkArea = () => {
 
@@ -71,7 +72,7 @@ const saveImg = () => {
         const reSizePar = curImg.state.style.transform.split(' ').map((mes)=>mes.match(/-?\d+(\.\d+)?/g))
 
         if (reSizePar[0] && reSizePar[1] && reSizePar[2] && reSizePar[3] && reSizePar[4]) {
-            ctx!.transform(+reSizePar[0]/100,+reSizePar[3],+reSizePar[4],+reSizePar[1]/100,(canvas.width/(+reSizePar[0]/100))/2,(canvas.height/(+reSizePar[1]/100))/2)
+            ctx!.transform(+reSizePar[0]/100,+reSizePar[3],+reSizePar[4],+reSizePar[1]/100,(canvas.width+(+reSizePar[0]/100))/2,(canvas.height+(+reSizePar[1]/100))/2)
             ctx!.rotate((+reSizePar[2]) * Math.PI / 180)
         }
         else {
@@ -109,7 +110,7 @@ return (
         <div className="ImgNameList">
                     {imgList.map(imgData => <ImgBtn key={imgData.id} {...{img: imgData,setImg,delImg}}/>)}
         </div>
-
+        {(curImg)? <ImgHistoryTable img={curImg}/>:undefined}
         {(imgList.length)? <CanvasArea {...{curImg,imgList,
                                         setImg,delImg}}></CanvasArea>:
         <DragComp {...{addImgInList}}></DragComp>}

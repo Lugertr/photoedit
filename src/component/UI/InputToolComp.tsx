@@ -6,7 +6,7 @@ interface Props {
     CurPar: string | undefined;
     inputFunc: (ref: React.RefObject<HTMLInputElement>, id: number) => void
     resFunc:(ref: React.RefObject<HTMLInputElement>, id: number) => void
-    mouseUpEvFunc: ()=>void | null;
+    mouseUpEvFunc: (typeName: string)=>void | null;
 }
 
 const InputToolComp = (props: Props)=> {
@@ -25,10 +25,10 @@ const InputToolComp = (props: Props)=> {
     
     return (
         <div className="toolBtn">
-            <span>{props.rangePar.name}</span>
+            <span>{`${props.rangePar.name}: ${InputRef.current!.value}`}</span>
             <input ref={InputRef} type="range" 
                 onInput={()=>props.inputFunc(InputRef,props.rangePar.id)}
-                onMouseUp={()=>props.mouseUpEvFunc()}
+                onMouseUp={()=>props.mouseUpEvFunc(props.rangePar.name)}
                 min={props.rangePar.min} max={props.rangePar.max}/>
             <button className="resetBtn" onClick={resetBtn}>RESET</button>
         </div>
