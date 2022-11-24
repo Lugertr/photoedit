@@ -59,7 +59,6 @@ const inputLoadFunc = () => {
 const saveImg = () => {
     if (!curImg)
         return
-    console.log('s')
     const canvas = document.createElement("canvas")
     const ctx = canvas.getContext("2d");
     const image = new Image();
@@ -70,7 +69,7 @@ const saveImg = () => {
         ctx!.filter = curImg.state.style.filter;
 
         const reSizePar = curImg.state.style.transform.split(' ').map((mes)=>mes.match(/-?\d+(\.\d+)?/g))
-        console.log(reSizePar)
+
         if (reSizePar[0] && reSizePar[1] && reSizePar[2] && reSizePar[3] && reSizePar[4]) {
             ctx!.transform(+reSizePar[0]/100,+reSizePar[3],+reSizePar[4],+reSizePar[1]/100,(canvas.width/(+reSizePar[0]/100))/2,(canvas.height/(+reSizePar[1]/100))/2)
             ctx!.rotate((+reSizePar[2]) * Math.PI / 180)
