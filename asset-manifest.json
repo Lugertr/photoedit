@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/photoedit/static/css/main.74bf36d9.css",
-    "main.js": "/photoedit/static/js/main.346e1973.js",
+    "main.js": "/photoedit/static/js/main.5d368c73.js",
     "index.html": "/photoedit/index.html",
     "main.74bf36d9.css.map": "/photoedit/static/css/main.74bf36d9.css.map",
-    "main.346e1973.js.map": "/photoedit/static/js/main.346e1973.js.map"
+    "main.5d368c73.js.map": "/photoedit/static/js/main.5d368c73.js.map"
   },
   "entrypoints": [
     "static/css/main.74bf36d9.css",
-    "static/js/main.346e1973.js"
+    "static/js/main.5d368c73.js"
   ]
 }
